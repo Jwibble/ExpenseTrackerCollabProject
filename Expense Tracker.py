@@ -7,7 +7,7 @@ print('Welcome to your expense tracker.')
 
 while True:
 
-    menu = input("Would you like to: \n"
+    menu = input("\nWould you like to: \n"
                     "1. Add New Expense \n"
                     "2. View all expenses \n"
                     "3. Categorize expenses \n"
@@ -17,7 +17,7 @@ while True:
                     "Please select which option by the number: ").strip()
 
     if menu == '1':
-        category =  input("Please enter the categogry for this expense: ").lower().strip()
+        category =  input("Please enter the categogry for this expense: ").lower().strip().title()
         try:
             amount = float(input("Enter the amount for this expense: "))
             
@@ -51,13 +51,41 @@ while True:
             for key, expense in expense_dict.items():
                 print(f"{key}. ${expense['amount']} - {expense['category']} - {expense['date']}")
         
-
     elif menu == '3':
-        print('tbd')
+        if not expense_dict:
+            print("No expenses have been added as of now.")
+        else:
+            categorized_expenses = {}
+            
+            for expense in expense_dict.values():
+                category = expense["category"]
+                if category not in categorized_expenses:
+                    categorized_expenses[category] = []
+                categorized_expenses[category].append(expense)
+
+            print("\nYour expenses categorized by type:")
+            for category, expenses in categorized_expenses.items():
+                print(f"\nCategory: {category}")
+                for expense in expenses:
+                    print(f"  - ${expense['amount']} on {expense['date']}")
 
   
     elif menu == '4':
-        print('tbd')
+        category_totals = {}
+        for expense in expense_dict.values():
+            category = expense["category"]
+            amount = expense["amount"]
+            if category in category_totals:
+                category_totals[category] += amount
+            else:
+                category_totals[category] = amount
+
+        print("\nYour total expenses by category are:")
+        for category, total in category_totals.items():
+            print(f"{category}: ${total}")
+
+        total_spending = sum(expense["amount"] for expense in expense_dict.values())
+        print(f"\nYour grand total expenses are: ${total_spending}")
 
 
     elif menu == '5':
