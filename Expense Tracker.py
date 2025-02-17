@@ -16,67 +16,54 @@ while True:
                     "6. Exit the app \n"
                     "Please select which option by the number: ").strip()
 
-    def Expense_Addition():
-        if menu == '1':
-            category =  input("Please enter the categogry for this expense: ").lower().strip()
+    if menu == '1':
+        category =  input("Please enter the categogry for this expense: ").lower().strip()
+        try:
+            amount = float(input("Enter the amount for this expense: ")).strip()
+            
+        except ValueError:
+            print("Invalid amount.")
+            
+
+        date = input("Please enter the date for when this expense is due in YYYY/MM/DD format: ").strip()
+
+        if date: 
             try:
-                amount = float(input("Enter the amount for this expense: ")).strip()
-            
+                date = datetime.datetime.strptime(date, "%Y/%m/%d").strftime("%Y-%m-%d")
             except ValueError:
-                print("Invalid amount.")
-                continue
+                print("Invalid Date.")
+                
 
-            date = input("Please enter the date for when this expense is due in YYYY/MM/DD format: ").strip()
+        expenseid = len(expense_dict) + 1
+        expense_dict[expenseid] = {"category": category, "amount": amount, "date": date}
 
-            if date: 
-                try:
-                     date = datetime.datetime.strptime(date, "%Y/%m/%d").strftime("%Y-%m-%d")
-                except ValueError:
-                    print("Invalid Date.")
-                    continue
-
-            expenseid = len(expense_dict) + 1
-            expense_dict[expenseid] = {"category": category, "amount": amount, "date": date}
-
-            print("Your expense has been added successfully.")
+        print("Your expense has been added successfully.")
 
 
-    Expense_Addition()
-
-    def Expense_View():
-        if menu == '2':
-            if not expense_dict:
-                print("No expenses have been added as of now.")
+    elif menu == '2':
+        if not expense_dict:
+            print("No expenses have been added as of now.")
             
-            else:
-                print("Your current expenses are:")
-                for key, expense in expense_dict.items():
-                    print(f"{key}. ${expense['amount']} - {expense['category']} - {expense['date']}")
+        else:
+            print("Your current expenses are:")
+            for key, expense in expense_dict.items():
+                print(f"{key}. ${expense['amount']} - {expense['category']} - {expense['date']}")
         
 
-    Expense_View()
+    elif menu == '3':
+        print('tbd')
 
-    def Categorize_Expenses():
-        if menu == '3':
-            print('tbd')
+  
+    elif menu == '4':
+        print("Which expense would you like to delete? Your current expenses:")
 
-    Categorize_Expenses()
+  
 
-    def Total_Expenses():
-        if menu == '4':
-            print("Which expense would you like to delete? Your current expenses:")
 
-    Total_Expenses()
+    elif menu == '5':
+        print('tbd')
 
-    def Expense_Deletion():
-        if menu == '5':
-            print('tbd')
 
-    Expense_Deletion()
-
-    def exit():
-        if menu == '6':
-            print("See you next time.")
-            exit()
-
+    elif menu == '6':
+        print("See you next time.")
         exit()
