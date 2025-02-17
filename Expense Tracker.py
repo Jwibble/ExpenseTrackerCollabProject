@@ -19,10 +19,11 @@ while True:
     if menu == '1':
         category =  input("Please enter the categogry for this expense: ").lower().strip()
         try:
-            amount = float(input("Enter the amount for this expense: ")).strip()
+            amount = float(input("Enter the amount for this expense: "))
             
         except ValueError:
             print("Invalid amount.")
+            continue
             
 
         date = input("Please enter the date for when this expense is due in YYYY/MM/DD format: ").strip()
@@ -31,7 +32,8 @@ while True:
             try:
                 date = datetime.datetime.strptime(date, "%Y/%m/%d").strftime("%Y-%m-%d")
             except ValueError:
-                print("Invalid Date.")
+                print("Invalid Date or format.")
+                continue
                 
 
         expenseid = len(expense_dict) + 1
@@ -55,15 +57,34 @@ while True:
 
   
     elif menu == '4':
-        print("Which expense would you like to delete? Your current expenses:")
-
-  
-
-
-    elif menu == '5':
         print('tbd')
 
 
+    elif menu == '5':
+        if not expense_dict:
+            print("No expesese have been added yet.")
+
+        else:
+            print("Which expense would you like to delete? Your current expenses:")
+
+            for key, expense in expense_dict.items():
+                print(f"{key}. ${expense['amount']} - {expense['category']} - {expense['date']}")
+
+            try:
+                expense_deletion = int(input("Please enter the number associated with the expense to delete it: "))
+                if expense_deletion in expense_dict:
+                    expense_dict.pop(expense_deletion)
+                    print("Your expense has been deleted")
+                
+                else:
+                    print("Invalid Number.")
+            
+            except ValueError:
+                print("Invalid input. Please enter a number associated with the expense")
+
     elif menu == '6':
         print("See you next time.")
-        exit()
+        break
+
+    else:
+        input("Please enter a number between 1 - 6: ").strip()
