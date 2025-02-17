@@ -21,7 +21,7 @@ Expense_Addition()
 
 def Expense_View():
     if menu == '2':
-    yada2 yada2
+    test2 test2
 
 Expense_Addition()
 
