@@ -7,6 +7,7 @@ print('Welcome to your expense tracker.')
 
 while True:
 
+   #Menu for user inoput
     menu = input("\nWould you like to: \n"
                     "1. Add new expense \n"
                     "2. View all expenses \n"
@@ -17,7 +18,7 @@ while True:
                     "Please select which option by the number: ").strip()
 
     if menu == '1':
-        category =  input("Please enter the category for this expense: ").lower().strip().title()
+        category =  input("Please enter the category for this expense: ").lower().strip().title()#Asks user for category, amount, and date for the expense added
         try:
             amount = float(input("Enter the amount for this expense: "))
             
@@ -36,20 +37,20 @@ while True:
                 continue
                 
 
-        expenseid = len(expense_dict) + 1
-        expense_dict[expenseid] = {"category": category, "amount": amount, "date": date}
+        expenseid = len(expense_dict) + 1 #Creates id for each expense
+        expense_dict[expenseid] = {"category": category, "amount": amount, "date": date}  #Adds the expense into the dictionary
 
         print("Your expense has been added successfully.")
 
 
     elif menu == '2':
         if not expense_dict:
-            print("No expenses have been added as of now.")
+            print("No expenses have been added as of now.")#If no expenses have been added then print this statement
             
         else:
             print("Your current expenses are:")
             for key, expense in expense_dict.items():
-                print(f"{key}. ${expense['amount']} - {expense['category']} - {expense['date']}")
+                print(f"{key}. ${expense['amount']} - {expense['category']} - {expense['date']}")#Print out all current expenses that have been added
         
     elif menu == '3':
         if not expense_dict:
@@ -95,7 +96,7 @@ while True:
             print("No expesese have been added yet.")
 
         else:
-            print("Which expense would you like to delete? Your current expenses:")
+            print("Which expense would you like to delete? Your current expenses:")#Gives a list of all current expenses
 
             for key, expense in expense_dict.items():
                 print(f"{key}. ${expense['amount']} - {expense['category']} - {expense['date']}")
@@ -103,7 +104,7 @@ while True:
             try:
                 expense_deletion = int(input("Please enter the number associated with the expense to delete it: "))
                 if expense_deletion in expense_dict:
-                    expense_dict.pop(expense_deletion)
+                    expense_dict.pop(expense_deletion)#Checks if the number is associated with the expense in the dictionary and then deletes it
                     print("Your expense has been deleted")
                 
                 else:
@@ -113,8 +114,9 @@ while True:
                 print("Invalid input. Please enter a number associated with the expense")
 
     elif menu == '6':
-        print("See you next time.")
+        print("See you next time.") #exit the loop and the app
         break
 
     else:
-        input("Please enter a number between 1 - 6: ").strip()
+        input("Please enter a number between 1 - 6: ").strip() #If invalid number then ask again for menu input
+
